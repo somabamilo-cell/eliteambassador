@@ -7,7 +7,7 @@ const Header = () => {
       <h1 className="text-3xl lg:text-8xl font-semibold text-white text-center mb-10">
         Vote Your Favourite <br /> Ambassador
       </h1>
-      <PopupInfo value={"Vote Favourite Ambassador"} style={true}/>
+      <PopupInfo value={"Vote Favourite Ambassador"} />
       </div>
     </section>
   );
