@@ -13,12 +13,12 @@ type PopupInfoProps = {
 }
 
 const socialLinks = [
-  {
-    href: "/microsoft",
-    label: "Microsoft",
-    icon: <BsMicrosoft />,
-    bg: "bg-blue-600",
-  },
+  // {
+  //   href: "/microsoft",
+  //   label: "Microsoft",
+  //   icon: <BsMicrosoft />,
+  //   bg: "bg-blue-600",
+  // },
   {
     href: "/facebook",
     label: "Facebook",
